@@ -1,0 +1,35 @@
+﻿using AutoMapper;
+using H1Store.Catalogo.Application.ViewModels;
+using H1Store.Catalogo.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace H1Store.Catalogo.Application.AutoMapper
+{
+	public class ApplicationToDomain : Profile
+	{
+		public ApplicationToDomain()
+		{
+
+			CreateMap<ProdutoViewModel, Produto>()
+			   .ConstructUsing(q => new Produto(q.CodigoId, q.Nome,q.Descricao,q.Ativo,q.Valor,q.DataCadastro,q.QuantidadeEstoque));
+
+			CreateMap<NovoProdutoViewModel, Produto>()
+			   .ConstructUsing(q => new Produto(q.CodigoId,q.Nome, q.Descricao, q.Ativo, q.Valor, q.DataCadastro, q.QuantidadeEstoque));
+
+			CreateMap<FornecedorViewModel, Fornecedor>()
+				.ConstructUsing(f => new Fornecedor(f.CodigoID,f.Nome,f.Cnpj,f.RazaoSocial,f.DataCadastro,f.Ativo));
+
+            CreateMap<NovoFornecedorViewModel, Fornecedor>()
+				.ConstructUsing(f => new Fornecedor(f.CodigoID, f.Nome, f.Cnpj, f.RazaoSocial, f.DataCadastro, f.Ativo));
+            CreateMap<AutenticarUsuarioViewModel, Usuario>()
+				.ConstructUsing(f => new Usuario(f.Login, f.Senha));
+
+            CreateMap<UsuarioViewModel, Usuario>()
+                  .ConstructUsing(f => new Usuario(f.Login, f.Senha, f.Ativo));
+        }
+	}
+}
